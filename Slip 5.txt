@@ -1,0 +1,53 @@
+Q.1) Create a simple Angular component that takes input data and displays it. 
+
+
+app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  message: string = '';
+}
+
+app.component.html
+<h2>Enter Data</h2>
+<input type="text" [(ngModel)]="message">
+<p>You entered: {{ message }}</p>
+
+app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, FormsModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+
+
+
+
+
+
+Q.2) Implement a simple server using Node.js.
+
+
+
+
+server.js
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    res.write("Node.js Server Running");
+    res.end();
+});
+
+server.listen(3000, () => {
+    console.log("Server started on port 3000");
+});

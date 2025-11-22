@@ -1,0 +1,61 @@
+Q.1) Find an emp with a Salary greater than 25000 in the array. (Using find by id method)
+
+
+
+const employees = [
+    { id: 1, name: "Amit", salary: 20000 },
+    { id: 2, name: "Rohan", salary: 30000 },
+    { id: 3, name: "Sneha", salary: 25000 },
+    { id: 4, name: "Neha", salary: 40000 }
+];
+
+const result = employees.find(e => e.salary > 25000);
+console.log(result);
+
+
+
+
+
+
+
+
+
+Q.2) Create Angular application that print the name of students who got 85% using filter
+and map method.
+
+
+
+
+
+
+
+
+app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  students = [
+    { name: "Rohan", percentage: 85 },
+    { name: "Amit", percentage: 78 },
+    { name: "Sneha", percentage: 85 },
+    { name: "Neha", percentage: 90 }
+  ];
+
+  result = this.students
+    .filter(s => s.percentage === 85)
+    .map(s => s.name);
+}
+
+app.component.html
+<h3>Students who scored 85%:</h3>
+<ul>
+  <li *ngFor="let s of result">
+    {{ s }}
+  </li>
+</ul>
+
+

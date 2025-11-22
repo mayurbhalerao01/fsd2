@@ -1,0 +1,89 @@
+Q.1) Fetch the details using ng-repeat in AngularJS 
+
+
+
+index.html)
+<!DOCTYPE html>
+<html ng-app="detailsApp">
+<head>
+    <title>Fetch Details Using ng-repeat</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="DetailsController">
+
+    <h2>Student Details</h2>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Course</th>
+        </tr>
+
+        <tr ng-repeat="student in students">
+            <td>{{ student.name }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.course }}</td>
+        </tr>
+    </table>
+
+    <script>
+        var app = angular.module("detailsApp", []);
+
+        app.controller("DetailsController", function($scope) {
+            $scope.students = [
+                { name: "Rohit", age: 21, course: "BCA" },
+                { name: "Sonal", age: 22, course: "MCA" },
+                { name: "Amit", age: 20, course: "B.Sc" },
+                { name: "Neha", age: 23, course: "M.Sc" }
+            ];
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+Q.2) Express.js application to include middleware for parsing request bodies (e.g.,
+JSON, form data) and validating input data.
+
+
+
+(server.js)
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Middleware to parse JSON and form data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Custom Middleware for Validation
+const validateUserInput = (req, res, next) => {
+    const { name, age } = req.body;
+
+    if (!name || !age) {
+        return res.status(400).send("Validation Failed: Name and Age are required.");
+    }
+    next(); // Proceed to next middleware or route
+};
+
+// Route using validation middleware
+app.post('/user', validateUserInput, (req, res) => {
+    res.send(`User ${req.body.name} (Age: ${req.body.age}) added successfully!`);
+});
+
+// Start Server
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
+
+
+
+

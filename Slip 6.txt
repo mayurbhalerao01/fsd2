@@ -1,0 +1,89 @@
+Q.1) Develop an Express.js application that defines routes for Create and Read operations
+on a resource (products).
+
+
+
+
+server.js
+const express = require("express");
+const app = express();
+app.use(express.json());
+
+// Temporary product data (in-memory)
+let products = [];
+
+/* ============== CREATE ===================
+   Route: POST /products
+   Description: Add a new product
+===========================================*/
+app.post("/products", (req, res) => {
+    const newProduct = {
+        id: products.length + 1,
+        name: req.body.name,
+        price: req.body.price
+    };
+    products.push(newProduct);
+    res.status(201).json({
+        message: "Product created successfully",
+        data: newProduct
+    });
+});
+
+/* ============== READ ======================
+   Route: GET /products
+   Description: Get list of all products
+============================================*/
+app.get("/products", (req, res) => {
+    res.json(products);
+});
+
+// Start Server
+app.listen(3000, () => {
+    console.log("Server running on http://localhost:3000");
+});
+
+
+
+
+
+
+
+
+Q.2) Find a company with a workforce greater than 30 in the array. (Using find by
+id method)
+
+
+
+
+
+.js
+
+// Full Program
+
+const companies = [
+    { id: 1, name: "TCS", employees: 25 },
+    { id: 2, name: "Infosys", employees: 45 },
+    { id: 3, name: "Wipro", employees: 20 },
+    { id: 4, name: "Google", employees: 100 }
+];
+
+function getCompany() {
+    const result = companies.find(company => company.employees > 30);
+    if (result) {
+        console.log("Company Found:");
+        console.log("ID:", result.id);
+        console.log("Name:", result.name);
+        console.log("Employees:", result.employees);
+    } else {
+        console.log("No company found with workforce greater than 30");
+    }
+}
+
+getCompany();
+
+
+
+
+
+
+

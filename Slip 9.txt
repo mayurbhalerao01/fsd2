@@ -1,0 +1,54 @@
+Q.1) Find a company with a workforce greater than 30 in the array. (Using find by
+id method). 
+
+
+
+const companies = [
+{ id: 1, name: "TCS", employees: 25 },
+{ id: 2, name: "Infosys", employees: 45 },
+{ id: 3, name: "Wipro", employees: 20 },
+{ id: 4, name: "Google", employees: 100 }
+];
+
+const result = companies.find(c => c.employees > 30);
+console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+Q.2) Create Express.js application to include middleware for parsing request bodies (e.g.,
+JSON, form data) and validating input data. Send appropriate JSON responses for
+success and error cases.
+
+
+
+
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/employee', (req, res) => {
+const { id, name, salary } = req.body;
+
+```
+if (!id || !name || !salary) {
+    return res.status(400).json({ message: "Invalid input data" });
+}
+
+res.json({ message: "Employee data received", data: req.body });
+```
+
+});
+
+app.listen(3000, () => {
+console.log("Server running on port 3000");
+});

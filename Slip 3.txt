@@ -1,0 +1,72 @@
+Q.1) Write an AngularJS script to display list of games stored in an array on click of
+button using ng-click and also demonstrate ng-init, ng-bind directive of AngularJS.
+
+
+
+
+
+
+
+(index.html)
+<!DOCTYPE html>
+<html ng-app="gameApp">
+<head>
+    <title>Display Games using AngularJS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="GameController" ng-init="message='Click to See Games';">
+
+    <h2 ng-bind="message"></h2>
+
+    <button ng-click="showGames = true">
+        Show Games
+    </button>
+
+    <ul ng-show="showGames">
+        <li ng-repeat="g in games">{{ g }}</li>
+    </ul>
+
+    <script>
+        var app = angular.module('gameApp', []);
+
+        app.controller('GameController', function($scope) {
+            $scope.games = [
+                "Cricket",
+                "Basketball",
+                "Football",
+                "Hockey",
+                "Chess"
+            ];
+            $scope.showGames = false;
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+Q.2) Find a company with a workforce greater than 30 in the array (use find by
+id method)
+
+
+
+.js
+
+
+const companies = [
+    { id: 1, name: "Alpha Inc", employees: 20 },
+    { id: 2, name: "Beta Solutions", employees: 35 },
+    { id: 3, name: "Gamma Tech", employees: 15 },
+    { id: 4, name: "Delta Corp", employees: 50 }
+];
+
+const result = companies.find(c => c.employees > 30);
+
+console.log("Company with more than 30 employees:");
+console.log(result);
+
+
+
+

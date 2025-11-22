@@ -1,0 +1,65 @@
+Q.1) Develop an Express.js application that defines routes for Create operations
+on a resource (Movie).
+
+
+
+
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+let movies = [];
+
+app.post('/movies', (req, res) => {
+    const movie = req.body;
+    movies.push(movie);
+    res.send("Movie added successfully");
+});
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
+
+
+
+
+
+
+
+Q.2) Create Angular application that print the name of students who play basketball
+using filter and map method.
+
+
+
+
+
+
+app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  students = [
+    { name: "Rohan", game: "Basketball" },
+    { name: "John", game: "Cricket" },
+    { name: "Amit", game: "Basketball" },
+    { name: "Sara", game: "Football" }
+  ];
+
+  basketballPlayers = this.students
+    .filter(s => s.game === "Basketball")
+    .map(s => s.name);
+}
+
+app.component.html
+<h3>Students who play Basketball:</h3>
+
+<ul>
+  <li *ngFor="let player of basketballPlayers">
+    {{ player }}
+  </li>
+</ul>

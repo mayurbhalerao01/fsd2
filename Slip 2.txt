@@ -1,0 +1,141 @@
+Q.1) Write an AngularJS script to print details of bank (bank name, MICR code, IFC
+code, address etc.) in tabular form using ng-repeat. 
+
+
+index.htlm
+
+<!DOCTYPE html>
+<html ng-app="bankApp">
+<head>
+    <title>Bank Details using ng-repeat</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="BankController">
+
+    <h2>Bank Details</h2>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th>Bank Name</th>
+            <th>MICR Code</th>
+            <th>IFSC Code</th>
+            <th>Address</th>
+        </tr>
+
+        <tr ng-repeat="b in banks">
+            <td>{{ b.name }}</td>
+            <td>{{ b.micr }}</td>
+            <td>{{ b.ifsc }}</td>
+            <td>{{ b.address }}</td>
+        </tr>
+    </table>
+
+    <script>
+        var app = angular.module('bankApp', []);
+
+        app.controller('BankController', function($scope) {
+            $scope.banks = [
+                { name: "SBI", micr: "400002345", ifsc: "SBIN0005678", address: "Mumbai" },
+                { name: "HDFC", micr: "400004321", ifsc: "HDFC0007890", address: "Pune" },
+                { name: "ICICI", micr: "400003210", ifsc: "ICIC0001234", address: "Nagpur" },
+                { name: "Bank of Baroda", micr: "400005432", ifsc: "BARB0009876", address: "Nashik" }
+            ];
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+Q.2) Create a simple Angular application that fetches data from an API using HttpClient.
+Implement an Observable to fetch data from an API endpoint.
+
+
+
+
+
+
+
+
+
+app.module.ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [ AppComponent ],
+  imports: [
+    BrowserModule,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+2. data.service.ts (Service)
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DataService {
+
+  private apiURL = 'https://jsonplaceholder.typicode.com/users';
+
+  constructor(private http: HttpClient) { }
+
+  getUsers(): Observable<any> {
+    return this.http.get(this.apiURL);
+  }
+}
+
+3. app.component.ts
+import { Component, OnInit } from '@angular/core';
+import { DataService } from './data.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent implements OnInit {
+
+  users: any[] = [];
+
+  constructor(private dataService: DataService) { }
+
+  ngOnInit(): void {
+    this.dataService.getUsers().subscribe((data) => {
+      this.users = data;   // Assign API response to array
+    });
+  }
+
+}
+
+4. app.component.html
+<h2>User List from API</h2>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+  </tr>
+
+  <tr *ngFor="let u of users">
+    <td>{{ u.id }}</td>
+    <td>{{ u.name }}</td>
+    <td>{{ u.email }}</td>
+  </tr>
+</table>

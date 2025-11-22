@@ -1,0 +1,75 @@
+Q.1) Create a Node.js application that reads data from multiple files asynchronously
+using promises and async/await. 
+
+
+
+
+
+
+
+app.js
+
+const fs = require('fs').promises;
+
+async function readFiles() {
+    try {
+        const file1 = fs.readFile('file1.txt', 'utf8');
+        const file2 = fs.readFile('file2.txt', 'utf8');
+
+        const results = await Promise.all([file1, file2]);
+
+        console.log("File 1 Data:");
+        console.log(results[0]);
+
+        console.log("File 2 Data:");
+        console.log(results[1]);
+        
+    } catch (error) {
+        console.log("Error:", error);
+    }
+}
+
+readFiles();
+
+
+
+
+
+
+
+Q.2) Develop an Express.js application that defines routes for Create and Read operations
+on a resource (User).
+
+
+
+
+
+js
+
+
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+let users = [];
+
+// CREATE User
+app.post('/users', (req, res) => {
+    const user = req.body;
+    users.push(user);
+    res.send("User created successfully");
+});
+
+// READ Users
+app.get('/users', (req, res) => {
+    res.json(users);
+});
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
+
+
+
+
+

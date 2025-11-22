@@ -1,0 +1,75 @@
+Q.1) Write an AngularJS script to print details of Employee (employee name, employee
+Id,Pin code, address etc.) in tabular form using ng-repeat.
+
+
+
+index.html
+<!DOCTYPE html>
+<html ng-app="empApp">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="empController">
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Employee Name</th>
+            <th>Employee ID</th>
+            <th>Pincode</th>
+            <th>Address</th>
+        </tr>
+        <tr ng-repeat="emp in employees">
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.id }}</td>
+            <td>{{ emp.pincode }}</td>
+            <td>{{ emp.address }}</td>
+        </tr>
+    </table>
+
+    <script>
+        var app = angular.module("empApp", []);
+        app.controller("empController", function($scope) {
+            $scope.employees = [
+                { name: "Amit", id: 101, pincode: 411001, address: "Pune" },
+                { name: "Sneha", id: 102, pincode: 400045, address: "Mumbai" },
+                { name: "Raj", id: 103, pincode: 110005, address: "Delhi" }
+            ];
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+Q.2) Develop an Express.js application that defines routes for Create operations
+on a resource (User).
+
+
+
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+let users = [];
+
+app.post('/users', (req, res) => {
+    const user = req.body;
+    users.push(user);
+    res.send("User added successfully");
+});
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
+
+
+
+
+

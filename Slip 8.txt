@@ -1,0 +1,109 @@
+Q.1) Create a simple Angular application that fetches data from an API using HttpClient.
+Implement an Observable to fetch data from an API endpoint. 
+
+
+
+
+app.module.ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { AppComponent } from './app.component';
+import { DataService } from './data.service';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, HttpClientModule],
+  providers: [DataService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+data.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class DataService {
+  constructor(private http: HttpClient) {}
+
+  getData(): Observable<any> {
+    return this.http.get('https://jsonplaceholder.typicode.com/users');
+  }
+}
+
+app.component.ts
+import { Component } from '@angular/core';
+import { DataService } from './data.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  users: any;
+
+  constructor(private service: DataService) {}
+
+  fetchData() {
+    this.service.getData().subscribe(data => {
+      this.users = data;
+    });
+  }
+}
+
+app.component.html
+<button (click)="fetchData()">Fetch Users</button>
+
+<ul>
+  <li *ngFor="let user of users">{{ user.name }}</li>
+</ul>
+
+
+
+
+
+
+
+Q.2) Develop an Express.js application that defines routes for Create, Update operations
+on a resource (Employee).
+
+
+
+app.js
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+let employees = [];
+
+// Create Employee
+app.post('/employees', (req, res) => {
+    const emp = req.body;
+    employees.push(emp);
+    res.send("Employee created");
+});
+
+// Update Employee
+app.put('/employees/:id', (req, res) => {
+    const empId = req.params.id;
+    const updated = req.body;
+    
+    const index = employees.findIndex(e => e.id == empId);
+    
+    if (index !== -1) {
+        employees[index] = updated;
+        res.send("Employee updated");
+    } else {
+        res.send("Employee not found");
+    }
+});
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
+
+
+
+
