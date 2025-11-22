@@ -1,0 +1,776 @@
+
+Q. 1 ) Write an AngularJS script for addition of two numbers using ng-init, ng-model & ng-bind. And also demonstrate ng-show, ng-disabled, ng-click directives on button component.
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial scale=1.0">
+<title>AngularJS Addition Example</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+</script>
+</head>
+<body ng-init="num1=0; num2=0; sum=0; allowCalc=false; showResult=false">
+<h2>AngularJS Addition with Checkbox Control</h2>
+<p> Enter First Number: <input type="number" ng-model="num1"></p> <p> Enter Second Number: <input type="number" ng-model="num2"> </p>
+<p> <input type="checkbox" ng-model="allowCalc"> Allow Addition </p>
+<p> <button ng-click="sum = num1 + num2; showResult = true" ng- disabled="!allowCalc"> Add Numbers </button>
+</p>
+<div ng-show="allowCalc && showResult">
+<h3>Result: <span ng-bind="sum"></span></h3>
+<p>◻ Calculation completed successfully!</p>
+</div>
+ 
+</body>
+</html>
+
+
+
+
+Output:
+
+ 
+
+Q. 2	) Create a Node.js application that reads data from multiple files asynchronously using promises and async/await.
+const fs = require('fs').promises;
+const files = ['file1.txt', 'file2.txt', 'file3.txt']; function readFileAsync(fileName) {
+return fs.readFile(fileName, 'utf8');
+}
+async function readMultipleFiles() { try {
+const readPromises = files.map(file => readFileAsync(file)); const contents = await Promise.all(readPromises); contents.forEach((content, index) => {
+console.log(`--- Content of ${files[index]} ---`); console.log(content);
+console.log('	\n');
+});
+} catch (err) {
+console.error('Error reading files:', err);
+}
+}
+ 
+readMultipleFiles();
+
+
+Output:
+
+ 
+
+Q. 3 	) Write an AngularJS script to print details of bank (bank name, MICR code, IFC code, address etc.) in tabular form using ng-repeat.
+<!DOCTYPE html>
+<html lang="en" ng-app="bankApp">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank Details</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></scr ipt>
+<style> table {
+border-collapse: collapse; width: 80%;
+margin: 20px auto;
+}
+th, td {
+border: 1px solid #333; padding: 8px 12px; text-align: left;
+ 
+}
+th {
+background-color: #f2f2f2;
+}
+h2 {
+text-align: center;
+}
+</style>
+</head>
+<body ng-controller="bankCtrl">
+<h2>Bank Details</h2>
+<table>
+<tr>
+<th>Bank Name</th>
+<th>MICR Code</th>
+<th>IFSC Code</th>
+<th>Address</th>
+</tr>
+<tr ng-repeat="bank in banks">
+<td>{{ bank.name }}</td>
+<td>{{ bank.micr }}</td>
+<td>{{ bank.ifsc }}</td>
+<td>{{ bank.address }}</td>
+</tr>
+ 
+</table>
+<script>
+var app = angular.module('bankApp', []); app.controller('bankCtrl', function($scope) {
+$scope.banks = [
+{
+name: 'State Bank of India', micr: '1100023',
+ifsc: 'SBIN0001234',
+address: '123 MG Road, Mumbai'
+},
+{
+name: 'HDFC Bank', micr: '4000123',
+ifsc: 'HDFC0005678',
+address: '45 Park Street, Kolkata'
+},
+{
+name: 'ICICI Bank', micr: '5000456', ifsc: 'ICIC0009876',
+address: '78 Brigade Road, Bangalore'
+},
+{
+ 
+
+
+
+
+
+
+
+}
+];
+});
+ 
+name: 'Axis Bank', micr: '6000789', ifsc: 'UTIB0004321',
+address: '90 Marine Drive, Mumbai'
+ 
+</script>
+</body>
+</html>
+
+
+Output:
+
+ 
+Roll No :- 08	Remark:-
+Name :- Bhalerao Mayur Abasaheb
+Subject :- Full Stack Development-II
+Class :- M.sc (Computer Science) SEM-III
+
+Q. 4 	) Create a simple Angular application that fetches data from an API using HttpClient. Implement an Observable to fetch data from an API endpoint.
+app.components.ts
+import { Component, OnInit } from '@angular/core'; import { ApiService } from './api.service'; @Component({
+selector: 'app-root',
+templateUrl: './app.component.html'
+})
+export class AppComponent implements OnInit { posts: any[] = [];
+constructor(private apiService: ApiService) {} ngOnInit(): void {
+// Subscribe to the Observable this.apiService.getPosts().subscribe((data) => { this.posts = data;
+});
+}
+}
+ 
+app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser'; import { HttpClientModule } from '@angular/common/http'; import { AppComponent } from './app.component'; @NgModule({
+declarations: [AppComponent], imports: [
+BrowserModule, HttpClientModule
+],
+providers: [],
+bootstrap: [AppComponent]
+})
+export class AppModule {}
+app.component.html
+<div class="container">
+<h1>Posts from API</h1>
+<ul>
+<li *ngFor="let post of posts">
+<strong>{{ post.title }}</strong>
+<p>{{ post.body }}</p>
+</li>
+</ul>
+ 
+</div>
+api.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; import { Observable } from 'rxjs';
+@Injectable({ providedIn: 'root'
+})
+export class ApiService {
+private apiUrl = 'https://jsonplaceholder.typicode.com/posts'; constructor(private http: HttpClient) {}
+getPosts(): Observable<any> {
+return this.http.get<any>(this.apiUrl);
+}
+}
+ 
+Output:
+
+
+
+ 
+
+Q. 5 	) Write an AngularJS script to display list of games stored in an array on click of button using ng-click and also demonstrate ng-init, ng-bind directive of AngularJS.
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AngularJS Games List</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></scr ipt>
+<style> ul {
+list-style-type: square; margin: 10px 0; padding-left: 20px;
+}
+button {
+padding: 6px 12px; margin-top: 10px;
+ 
+}
+</style>
+</head>
+<body ng-init="games=['Cricket','Football','Tennis','Hockey','Badminton']; showGames=false; message=''">
+<h2>Games List Example</h2>
+<button ng-click="showGames=true; message='List of Games:'">Show Games</button>
+<h3 ng-bind="message"></h3>
+<ul ng-show="showGames">
+<li ng-repeat="game in games">{{ game }}</li>
+</ul>
+</body>
+</html>
+ 
+Output:
+
+
+
+
+
+
+
+
+ 
+
+Q. 6 	) Find a company with a workforce greater than 30 in the array (use find by id method).
+company.service.ts
+import { Injectable } from '@angular/core'; import { Observable, of } from 'rxjs'; export interface Company {
+id: number; name: string;
+workforce: number;
+}
+@Injectable({ providedIn: 'root'
+})
+export class CompanyService { private companies: Company[] = [
+{ id: 1, name: 'TechCorp', workforce: 25 },
+{ id: 2, name: 'InnoSoft', workforce: 40 },
+{ id: 3, name: 'WebSolutions', workforce: 15 },
+{ id: 4, name: 'AlphaSystems', workforce: 50 },
+{ id: 5, name: 'MegaTech', workforce: 60 }
+ 
+];
+constructor() { }
+getCompanies(): Observable<Company[]> { return of(this.companies);
+}
+}
+app.component.ts
+import { Component, OnInit } from '@angular/core';
+import { CompanyService, Company } from './services/company.service'; @Component({
+selector: 'app-root',
+templateUrl: './app.component.html', styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit { companies: Company[] = [];
+filteredCompanies: Company[] = [];
+constructor(private companyService: CompanyService) { } ngOnInit(): void { this.companyService.getCompanies().subscribe(data => {
+this.companies = data;
+});
+}
+findCompanies(): void {
+ 
+this.filteredCompanies = this.companies.filter(company => company.workforce > 30);
+}
+}
+app.component.html
+<div style="text-align:center; margin:20px;">
+<h1>Companies with Workforce Greater Than 30</h1>
+<button (click)="findCompanies()">Show Companies</button>
+<table *ngIf="filteredCompanies.length > 0" border="1" cellpadding="5" cellspacing="0" style="margin:auto; margin-top:20px; width:70%;">
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Workforce</th>
+</tr>
+<tr *ngFor="let company of filteredCompanies">
+<td>{{ company.id }}</td>
+<td>{{ company.name }}</td>
+<td>{{ company.workforce }}</td>
+</tr>
+</table>
+<p *ngIf="filteredCompanies.length === 0 && companies.length > 0" style="color:red; margin-top:20px;">
+No company found with workforce greater than 30.
+</p> </div>
+ 
+Output:
+
+
+
+ 
+
+Q. 7	) Fetch the details using ng-repeat in AngularJS.
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="UTF-8">
+<title>AngularJS ng-repeat Example</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js">
+</script>
+<style>
+table {
+border-collapse: collapse; width: 60%;
+margin: 20px auto;
+}
+th, td {
+border: 1px solid #333; padding: 8px;
+text-align: left;
+ 
+}
+th {
+background-color: #f2f2f2;
+}
+</style>
+</head>
+<body ng-controller="MainController">
+<h2 style="text-align:center;">Company Details</h2>
+<table>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Workforce</th>
+</tr>
+<tr ng-repeat="company in companies">
+<td>{{ company.id }}</td>
+<td>{{ company.name }}</td>
+<td>{{ company.workforce }}</td>
+</tr>
+</table>
+<script>
+var app = angular.module('myApp', []); app.controller('MainController', ['$scope', function($scope) {
+ 
+$scope.companies = [
+{ id: 1, name: 'TechSoft', workforce: 25 },
+{ id: 2, name: 'Green Energy', workforce: 40 },
+{ id: 3, name: 'Blue Ocean', workforce: 32 },
+{ id: 4, name: 'SkyNet', workforce: 28 }
+];
+}]);
+</script>
+</body>
+</html>
+Output:
+
+
+
+ 
+
+Q. 8 ) Create Express.js application to include middleware for parsing request bodies (e.g., JSON, form data) and validating input data. Send appropriate JSON responses for success and error cases.
+const express = require('express'); const mongoose = require('mongoose'); const app = express();
+const port = 3000; mongoose.connect('mongodb://localhost:27017/testdb', { useNewUrlParser: true,
+useUnifiedTopology: true,
+})
+.then(() => console.log('MongoDB connected'))
+.catch((err) => {
+console.error('MongoDB connection error:', err); process.exit(1);
+});
+app.use(express.json()); app.use(express.urlencoded({ extended: true })); const userSchema = new mongoose.Schema({ username: {
+ 
+type: String,
+required: [true, 'Username is required'],
+minlength: [3, 'Username must be at least 3 characters long'], trim: true,
+},
+email: { type: String,
+required: [true, 'Email is required'], trim: true,
+lowercase: true, validate: {
+validator: function (v) {
+// Basic email regex
+return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+},
+message: props => `${props.value} is not a valid email!`,
+},
+},
+});
+const User = mongoose.model('User', userSchema); app.post('/register', async (req, res) => {
+try {
+const user = new User(req.body); await user.save();
+ 
+res.status(201).json({ success: true,
+message: 'User registered successfully', data: {
+username: user.username, email: user.email,
+},
+});
+} catch (err) {
+if (err.name === 'ValidationError') {
+const errors = Object.values(err.errors).map(e => e.message); return res.status(400).json({ success: false, errors });
+}
+console.error(err);
+res.status(500).json({ success: false, message: 'Server error' });
+}
+});
+app.listen(port, () => {
+console.log(`Server listening on http://localhost:${port}`);
+});
+ 
+Output:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+Q. 9 	) Create a simple Angular component that takes input data and displays it.
+student.component.ts
+import { Component } from '@angular/core'; @Component({
+selector: 'app-student',
+templateUrl: './student.component.html', styleUrls: ['./student.component.css']
+})
+export class StudentComponent { studentName: string = ''; studentAge: number | null = null; submitted = false;
+onSubmit() { this.submitted = true;
+}
+}
+Student.component.html
+<div style="margin:20px;">
+<h2>Enter Student Details</h2>
+ 
+<label for="name">Name: </label>
+<input id="name" [(ngModel)]="studentName" placeholder="Enter name"
+/><br><br>
+<label for="age">Age: </label>
+<input id="age" type="number" [(ngModel)]="studentAge" placeholder="Enter age" /><br><br>
+<button (click)="onSubmit()">Submit</button>
+<div *ngIf="submitted" style="margin-top:20px;">
+<h3>Student Information</h3>
+<p><strong>Name:</strong> {{ studentName }}</p>
+<p><strong>Age:</strong> {{ studentAge }}</p>
+</div>
+</div>
+App.component.html
+<app-student></app-student>
+Output:
+
+ 
+
+Q. 10 ) Implement a simple server using Node.js.
+const http = require('http'); const PORT = 3000;
+const server = http.createServer((req, res) => { res.writeHead(200, { 'Content-Type': 'text/plain' }); res.end('Hello! This is a simple Node.js server.\n');
+});
+server.listen(PORT, () => {
+console.log(`Server is running at http://localhost:${PORT}`);
+});
+Output:
+
+ 
+
+Q. 11 ) Create Angular application that print the name of students who play basketball using filter and map method.
+app.component.ts
+import { Component, OnInit } from '@angular/core'; @Component({
+selector: 'app-root',
+templateUrl: './app.component.html'
+})
+export class AppComponent implements OnInit { students = [
+{ id: 1, name: Sanket, sport: 'Basketball' },
+{ id: 2, name: 'Sham', sport: 'Football' },
+{ id: 3, name: mayur, sport: 'Basketball' },
+{ id: 4, name: 'Krushna', sport: ' Basketball ' }
+];
+basketballPlayers: string[] = []; ngOnInit(): void {
+// ◻ filter + map this.basketballPlayers = this.students
+.filter(student => student.sport === 'Basketball')
+ 
+.map(student => student.name);
+}
+App.component.html
+<div style="padding:20px;">
+<h1>Basketball Players</h1>
+<ul>
+<li *ngFor="let player of basketballPlayers">{{ player }}</li>
+</ul>
+</div>
+Output:
+
+ 
+
+Q. 12 ) Write an AngularJS script to print details of Employee (employee name, employee Id,Pin code, address etc.) in tabular form using ng-repeat.
+<!DOCTYPE html>
+<html lang="en" ng-app="employeeApp">
+<head>
+<meta charset="UTF-8">
+<title>Employee Details</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></scr ipt>
+<style> body {
+font-family: Arial, sans-serif;
+}
+table {
+border-collapse: collapse; width: 75%;
+margin: 20px auto;
+}
+th, td {
+border: 1px solid #444;
+ 
+padding: 8px; text-align: center;
+}
+th {
+background: #f2f2f2;
+}
+h1 {
+text-align: center; margin-top: 20px;
+}
+</style>
+</head>
+<body ng-controller="employeeController">
+<h1>Employee Details</h1>
+<table>
+<tr>
+<th>Employee ID</th>
+<th>Name</th>
+<th>Pin Code</th>
+<th>Address</th>
+</tr>
+<tr ng-repeat="emp in employees">
+<td>{{ emp.id }}</td>
+<td>{{ emp.name }}</td>
+ 
+<td>{{ emp.pincode }}</td>
+<td>{{ emp.address }}</td>
+</tr>
+</table>
+<script>
+var app = angular.module("employeeApp", []); app.controller("employeeController", function($scope) {
+$scope.employees = [
+{ id: 101, name: "Rahul", pincode: "560001", address: "MG Road, Bangalore, Karnataka" },
+{ id: 102, name: "Mayur", pincode: "380001", address: "Ashram Road, Ahmedabad, Gujarat" },
+{ id: 103, name: "Om", pincode: "112233", address: "Connaught Place, New Delhi" },
+{ id: 104, name: "Sham", pincode: "445566", address: "T Nagar, Chennai, Tamil Nadu" },
+{ id: 105, name: "Krushna", pincode: "778899", address: "Shivaji Nagar, Pune, Maharashtra" }
+];
+});
+</script>
+</body>
+</html>
+ 
+Output:
+
+ 
+
+Q. 13 ) Create Angular application that print the name of students who got 85% using filter and map method.
+students.component.ts
+import { Component, OnInit } from '@angular/core'; @Component({
+selector: 'app-students',
+templateUrl: './students.component.html', styleUrls: ['./students.component.css']
+})
+export class StudentsComponent implements OnInit { students = [
+{ name: 'Rahul', percentage: 85 },
+{ name: 'Om', percentage: 90 },
+{ name: 'Ram', percentage: 70 },
+{ name: 'Mayur', percentage: 85 },
+{ name: 'Krushna', percentage: 85 }
+];
+topperNames: string[] = []; ngOnInit(): void {
+// Filter and Map
+ 
+this.topperNames = this.students
+.filter(student => student.percentage === 85)
+.map(student => student.name);
+}
+}
+students.component.html
+<div style="margin:20px;">
+<h2>Students with 85%</h2>
+<ul>
+<li *ngFor="let name of topperNames">{{ name }}</li>
+</ul>
+</div>
+app.component.html
+<app-students></app-students>
+Output:
+
+
+ 
+
+Q. 14 ) Find an emp with a Salary greater than 25000 in the array. (Using find by id method).
+const employees = [
+{ id: 1, name: "Mayur", salary: 20000 },
+{ id: 2, name: "Suyash", salary: 28000 },
+{ id: 3, name: "Sanket", salary: 25000 },
+{ id: 4, name: "Uddhav", salary: 30000 },
+];
+const highSalaryEmps = employees.find(e => e.salary >= 25000); if (highSalaryEmps.length > 0) {
+console.log("Employees with salary >= 25000:"); console.log(highSalaryEmps);
+} else {
+console.log("No employees found with salary >= 25000");
+}
+ 
+Output:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Q. 15 a ) Develop an Express.js application that defines routes for Create and Read operations on a resource (products).
+const express = require('express'); const mongoose = require('mongoose'); const app = express();
+const PORT = 3000; app.use(express.json());
+mongoose.connect('mongodb://localhost:27017/productsdb', { useNewUrlParser: true,
+useUnifiedTopology: true
+})
+.then(() => console.log('◻ Connected to MongoDB'))
+.catch((err) => console.error('◻ MongoDB connection error:', err)); const productSchema = new mongoose.Schema({
+name: { type: String, required: true }, price: { type: Number, required: true }, description: String
+}, { timestamps: true });
+const Product = mongoose.model('Product', productSchema); app.post('/product', async (req, res) => {
+ 
+try {
+const product = new Product(req.body); const saved = await product.save(); res.status(201).json(saved);
+} catch (err) {
+res.status(400).json({ error: err.message });
+}
+});
+app.get('/product', async (req, res) => { try {
+const products = await Product.find(); res.json(products);
+} catch (err) {
+res.status(500).json({ error: err.message });
+}
+});
+app.listen(PORT, () => {
+console.log(`◻ Server running on http://localhost:${PORT}`);
+});
+ 
+Output:
+
+
+
+
+ 
+
+Q. 15 b ) Develop an Express.js application that defines routes for Create and Read operations on a resource (User).
+const express = require('express'); const mongoose = require('mongoose'); const app = express();
+const PORT = 3000; app.use(express.json());
+mongoose.connect('mongodb://localhost:27017/userdb', { useNewUrlParser: true,
+useUnifiedTopology: true
+})
+.then(() => console.log('◻ Connected to MongoDB'))
+.catch(err => console.error('◻ Connection error:', err)); const userSchema = new mongoose.Schema({
+name: { type: String, required: true },
+email: { type: String, required: true, unique: true }, age: { type: Number, required: true }
+}, { timestamps: true });
+const User = mongoose.model('User', userSchema); app.post('/users', async (req, res) => {
+ 
+try {
+const user = new User(req.body); const saved = await user.save(); res.status(201).json(saved);
+} catch (err) {
+res.status(400).json({ error: err.message });
+}
+});
+app.get('/users', async (req, res) => { try {
+const users = await User.find(); res.json(users);
+} catch (err) {
+res.status(500).json({ error: err.message });
+}
+});
+app.listen(PORT, () => {
+console.log(`◻ Server running at http://localhost:${PORT}`);
+});
+ 
+Output:
+
+
+
+
+ 
+
+Q. 15 c ) Develop an Express.js application that defines routes for Create, Update operations on a resource (Employee).
+const express = require('express'); const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/employeedb', { useNewUrlParser: true,
+useUnifiedTopology: true
+}).then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('MongoDB connection error:', err)); const employeeSchema = new mongoose.Schema({
+name: { type: String, required: true }, position: { type: String, required: true }, salary: { type: Number, required: true }
+}, { timestamps: true });
+const Employee = mongoose.model('Employee', employeeSchema); const app = express();
+const PORT = 3000; app.use(express.json()); app.post('/employees', async (req, res) => { try {
+ 
+const emp = new Employee(req.body); const savedEmp = await emp.save(); res.status(201).json(savedEmp);
+} catch (error) {
+res.status(400).json({ error: error.message });
+}
+});
+app.put('/employees/:id', async (req, res) => { try {
+const updatedEmp = await Employee.findByIdAndUpdate( req.params.id,
+req.body,
+{ new: true, runValidators: true }
+);
+if (!updatedEmp) {
+return res.status(404).json({ error: 'Employee not found' });
+}
+res.json(updatedEmp);
+} catch (error) {
+res.status(400).json({ error: error.message });
+}
+});
+app.listen(PORT, () => {
+console.log(`Server running on http://localhost:${PORT}`);
+ 
+});
+
+
+Output:
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+Q. 15 d ) Develop an Express.js application that defines routes for Create operations on a resource (Movie).
+const express = require('express'); const mongoose = require('mongoose'); const app = express(); app.use(express.json());
+mongoose.connect('mongodb://localhost:27017/moviedb', { useNewUrlParser: true,
+useUnifiedTopology: true,
+})
+.then(() => console.log('◻ Connected toMongoDB'))
+.catch((err) => console.error('◻ MongoDB connection error:', err)); const movieSchema = new mongoose.Schema({
+title: { type: String, required: true }, director: String,
+releaseYear: Number, genre: String,
+});
+const Movie = mongoose.model('Movie', movieSchema); app.post('/movies', async (req, res) => {
+ 
+try {
+const movie = new Movie(req.body); const savedMovie = await movie.save(); res.status(201).json({
+message: '◻ Movie created successfully!', data: savedMovie,
+});
+} catch (error) { res.status(400).json({
+message: '◻ Failed to create movie', error: error.message,
+});
+}
+});
+const PORT = 3000; app.listen(PORT, () => {
+console.log(`◻ Server is running on http://localhost:${PORT}`);
+});
+ 
+Output:
+
+
+
+ 
+
+
+	 
+
